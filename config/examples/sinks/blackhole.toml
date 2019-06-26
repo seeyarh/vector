@@ -7,7 +7,7 @@
   # REQUIRED - General
   type = "blackhole" # must be: blackhole
   inputs = ["my-source-id"]
-  print_amount = "1000"
+  print_amount = 1000
 
   # OPTIONAL - Buffer
   [sinks.my_blackhole_sink.buffer]
