@@ -17,7 +17,7 @@ else
   echo "Version ($VERSION) is a release version, releasing to latest channels"
 fi
 
-if [ -n "$CHANNEL" ]; then
+if [ -z "$CHANNEL" ]; then
   echo 'The CHANNEL env var must be set to "edge" or "latest"'
   exit 1
 fi
@@ -88,12 +88,12 @@ fi
 # Install script
 #
 
-echo "Updating sh.vector.dev install.sh script"
-aws s3api put-object \
-  --bucket "sh.vector.dev" \
-  --key "install.sh" \
-  --body "distribution/install.sh" \
-  --acl "public-read"
+# echo "Updating sh.vector.dev install.sh script"
+# aws s3api put-object \
+#   --bucket "sh.vector.dev" \
+#   --key "install.sh" \
+#   --body "distribution/install.sh" \
+#   --acl "public-read"
 
 #
 # Docker
