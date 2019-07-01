@@ -6,9 +6,9 @@
 #
 #   Releases Vector to S3, APT, YUM, Homebrew, Docker, and Github
 
-set -u
+set -eu
 
-$CHANNEL=""
+CHANNEL=""
 if [[ $VERSION == *"-"* ]]; then
   $CHANNEL="edge"
   echo "Version ($VERSION) is an edge version, only releasing to edge channels"
