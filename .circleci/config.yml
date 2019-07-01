@@ -315,7 +315,7 @@ test-workflow-filters: &test-workflow-filters
     tags:
       ignore: /.*/
 
-compile-workflow-filters: &compile-workflow-filters
+release-workflow-filters: &release-workflow-filters
   filters:
     branches:
       only: master
@@ -345,48 +345,48 @@ workflows:
       - test-stable:
           <<: *test-workflow-filters
       - build-x86_64-unknown-linux-gnu-archive:
-          <<: *compile-workflow-filters
+          <<: *release-workflow-filters
           requires:
             - rustfmt
             - check-stable
             - test-stable
       - build-x86_64-apple-darwin-archive:
-          <<: *compile-workflow-filters
+          <<: *release-workflow-filters
           requires:
             - rustfmt
             - check-stable
             - test-stable
       - package-rpm:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           requires:
             - build-x86_64-unknown-linux-gnu-archive
             - build-x86_64-apple-darwin-archive
       - verify-amazon-linux-1:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-amazon-linux-2:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-centos-7:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-deb-8:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-deb-9:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-ubuntu-16-04:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-ubuntu-18-04:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - verify-ubuntu-19-04:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           <<: *verify-requires
       - release:
-          <<: *tag-release-workflow-filters
+          <<: *release-workflow-filters
           requires:
             - verify-amazon-linux-1
             - verify-amazon-linux-2
