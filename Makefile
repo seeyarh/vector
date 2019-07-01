@@ -32,6 +32,9 @@ package-deb: ## Create a .deb package from artifacts created via `build`
 package-rpm: ## Create a .rpm package from artifacts created via `build`
 	@scripts/package-rpm.sh
 
+prepare-release: ## Prepares a new release
+	@scripts/prepare-release.sh
+
 release: ## Release artifacts produces by build
 	@scripts/release.sh
 
