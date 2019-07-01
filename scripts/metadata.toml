@@ -1308,7 +1308,7 @@ description = "Key/Value pairs representing mapped field types."
 
 [transforms.regex_parser.options.types.options."*"]
 type = "string"
-enum = ["string", "int", "float", "bool", "timestamp|<strftime-format>"]
+enum = ["string", "int", "float", "bool", "timestamp|strftime"]
 examples = [
   {name = "status", value = "int"},
   {name = "duration", value = "float"},
@@ -1527,7 +1527,7 @@ description = "Key/Value pairs representing mapped field types."
 
 [transforms.tokenizer.options.types.options."*"]
 type = "string"
-enum = ["string", "int", "float", "bool", "timestamp|<strftime-format>"]
+enum = ["string", "int", "float", "bool", "timestamp|strftime"]
 examples = [
   {name = "status", value = "int"},
   {name = "duration", value = "float"},

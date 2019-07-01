@@ -88,7 +88,7 @@ def write(file_path, content, opts = {})
     rescue Errno::ENOENT
       ""
     end
-
+    
   if existing_content != content
     File.write(file_path, content)
     puts Paint["-> ✔ Updated: #{file_path}", :green] if !opts[:silent]
@@ -197,7 +197,6 @@ files = files - ["docs/SUMMARY.md"]
 
 files.each do |file_path|
   content = File.read(file_path)
-  puts file_path
   link_generator = LinkGenerator.new(content, file_path, schema.links)
   content = link_generator.generate
   write(file_path, content, silent: true)

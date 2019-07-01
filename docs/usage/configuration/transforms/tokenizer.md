@@ -57,7 +57,7 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
 
   # OPTIONAL - Types
   [transforms.<transform-id>.types]
-    * = {"string" | "int" | "float" | "bool" | "timestamp|<strftime-format>"}
+    * = {"string" | "int" | "float" | "bool" | "timestamp|strftime"}
 ```
 {% endcode-tabs-item %}
 {% code-tabs-item title="vector.toml (specification)" %}
@@ -92,10 +92,10 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
   [transforms.tokenizer.types]
 
     # A definition of mapped field types. They key is the field name and the value
-    # is the type. These should coincide with the `field_names` option.
+    # is the type. `strftime` specifiers are supported for the `timestamp` type.
     #
     # * no default
-    # * enum: string, int, float, bool, timestamp|<strftime-format>
+    # * enum: string, int, float, bool, timestamp|strftime
     status = "int"
     duration = "float"
     success = "bool"
@@ -119,8 +119,7 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
 | `drop_field` | `bool` | If `true` the `field` will be dropped after parsing.<br />`default: true` |
 | `field` | `string` | The field to tokenize.<br />`default: "message"` |
 | **OPTIONAL** - Types | | |
-| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. These should coincide with the `field_names` option.
-<br />`no default` `enum: "string", "int", "float", "bool", "timestamp|<strftime-format>"` |
+| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp|strftime"` |
 
 ## I/O
 
@@ -228,3 +227,4 @@ Finally, consider the following alternatives:
 [docs.troubleshooting]: ../../../usage/guides/troubleshooting.md
 [url.community]: https://vector.dev/community
 [url.search_forum]: https://forum.vector.dev/search?expanded=true
+[url.strftime_specifiers]: https://docs.rs/chrono/0.3.1/chrono/format/strftime/index.html

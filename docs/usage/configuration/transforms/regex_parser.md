@@ -59,7 +59,7 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
 
   # OPTIONAL - Types
   [transforms.<transform-id>.types]
-    * = {"string" | "int" | "float" | "bool" | "timestamp|<strftime-format>"}
+    * = {"string" | "int" | "float" | "bool" | "timestamp|strftime"}
 ```
 {% endcode-tabs-item %}
 {% code-tabs-item title="vector.toml (specification)" %}
@@ -99,10 +99,10 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
   [transforms.regex_parser.types]
 
     # A definition of mapped field types. They key is the field name and the value
-    # is the type.
+    # is the type. `strftime` specifiers are supported for the `timestamp` type.
     #
     # * no default
-    # * enum: string, int, float, bool, timestamp|<strftime-format>
+    # * enum: string, int, float, bool, timestamp|strftime
     status = "int"
     duration = "float"
     success = "bool"
@@ -127,7 +127,7 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
 | `drop_field` | `bool` | If the `field` should be dropped (removed) after parsing.<br />`default: true` |
 | `field` | `string` | The field to parse. See [Failed Parsing](#failed-parsing) for more info.<br />`default: "message"` |
 | **OPTIONAL** - Types | | |
-| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp|<strftime-format>"` |
+| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp|strftime"` |
 
 ## I/O
 
@@ -246,3 +246,4 @@ Finally, consider the following alternatives:
 [url.regex_parsing_performance_test]: https://github.com/timberio/vector-test-harness/tree/master/cases/regex_parsing_performance
 [url.rust_regex_syntax]: https://docs.rs/regex/1.1.7/regex/#syntax
 [url.search_forum]: https://forum.vector.dev/search?expanded=true
+[url.strftime_specifiers]: https://docs.rs/chrono/0.3.1/chrono/format/strftime/index.html

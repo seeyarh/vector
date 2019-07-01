@@ -254,7 +254,7 @@ The `aws_s3` sink batch and flushes [`log`][docs.log_event] events to [AWS S3][u
 | `batch_timeout` | `int` | The maximum age of a batch before it is flushed. See [Batching](#batching) for more info.<br />`default: 300` `unit: bytes` |
 | **OPTIONAL** - Object Names | | |
 | `filename_append_uuid` | `bool` | Whether or not to append a UUID v4 token to the end of the file. This ensures there are no name collisions high volume use cases. See [Object Naming](#object-naming) for more info.<br />`default: true` |
-| `filename_time_format` | `string` | The format of the resulting object file name. [`strftime` specifiers][url.strftime_specifiers] are supported.  See [Object Naming](#object-naming) for more info.<br />`default: "%s"` |
+| `filename_time_format` | `string` | The format of the resulting object file name. [`strftime` specifiers][url.strftime_specifiers] are supported. See [Object Naming](#object-naming) for more info.<br />`default: "%s"` |
 | `key_prefix` | `string` | A prefix to apply to all object key names. This should be used to partition your objects, and it's important to end this value with a `/` if you want this to be the root S3 "folder". [`strftime` specifiers][url.strftime_specifiers] are supported.  See [Object Naming](#object-naming) and [Partitioning](#partitioning) for more info.<br />`default: "date=%F"` |
 | **OPTIONAL** - Requests | | |
 | `compression` | `string` | The compression type to use before writing data. See [Compression](#compression) for more info.<br />`no default` `enum: "gzip"` |
