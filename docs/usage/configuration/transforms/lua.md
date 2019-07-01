@@ -1,5 +1,5 @@
 ---
-description: transform events with a full embedded [Lua][url.lua] engine
+description: transform events with a full embedded Lua engine
 ---
 
 <!---

@@ -26,7 +26,7 @@ module Docs
     def generate
       content = <<~EOF
         ---
-        description: #{transform.allow_you_to_description}
+        description: #{remove_markdown_links(transform.allow_you_to_description)}
         ---
 
         #{warning}

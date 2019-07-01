@@ -1,5 +1,5 @@
 ---
-description: parse a field's value with a [Regular Expression][url.regex]
+description: parse a field's value with a Regular Expression
 ---
 
 <!---

@@ -26,7 +26,7 @@ module Docs
     def generate
       content = <<~EOF
         ---
-        description: Continuously accept #{source.output_types.to_sentence} events through #{source.through_description}
+        description: Continuously accept #{source.output_types.to_sentence} events through #{remove_markdown_links(source.through_description)}
         ---
 
         #{warning}

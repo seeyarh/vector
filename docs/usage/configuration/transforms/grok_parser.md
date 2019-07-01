@@ -1,5 +1,5 @@
 ---
-description: parse a field value with [Grok][url.grok]
+description: parse a field value with Grok
 ---
 
 <!---
