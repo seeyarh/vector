@@ -101,7 +101,7 @@ jobs:
   # Building - Archives
   #
 
-  build-x86_64-apple-darwin:
+  build-x86_64-apple-darwin-archive:
     resource_class: large
     macos:
       xcode: "9.0"
@@ -115,13 +115,13 @@ jobs:
           command: |
             export PATH="$HOME/.cargo/bin:$PATH"
             export VERSION=$(make version)
-            make build
+            make build-archive
       - persist_to_workspace:
           root: target/artifacts
           paths:
             - "*-x86_64-apple-darwin.tar.gz"
 
-  build-x86_64-unknown-linux-gnu:
+  build-x86_64-unknown-linux-gnu-archive:
     docker:
       - image: timberiodev/vector-builder-x86_64-unknown-linux-gnu:latest
     resource_class: xlarge
@@ -131,7 +131,7 @@ jobs:
           name: Build archive
           command: |
             export VERSION=$(make version)
-            make build
+            make build-archive
       # We _must_ build the deb package on the same machine that created
       # the binary. `cargo deb` performs dependency calculation via `ldd`
       # and this process must happen on the same machine it was built in
@@ -344,13 +344,13 @@ workflows:
           <<: *test-workflow-filters
       - test-stable:
           <<: *test-workflow-filters
-      - build-x86_64-unknown-linux-gnu:
+      - build-x86_64-unknown-linux-gnu-archive:
           <<: *compile-workflow-filters
           requires:
             - rustfmt
             - check-stable
             - test-stable
-      - build-x86_64-apple-darwin:
+      - build-x86_64-apple-darwin-archive:
           <<: *compile-workflow-filters
           requires:
             - rustfmt
@@ -359,8 +359,8 @@ workflows:
       - package-rpm:
           <<: *tag-release-workflow-filters
           requires:
-            - build-x86_64-unknown-linux-gnu
-            - build-x86_64-apple-darwin
+            - build-x86_64-unknown-linux-gnu-archive
+            - build-x86_64-apple-darwin-archive
       - verify-amazon-linux-1:
           <<: *tag-release-workflow-filters
           <<: *verify-requires
