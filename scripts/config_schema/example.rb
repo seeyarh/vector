@@ -1,4 +1,4 @@
-class Output
+class Example
   attr_reader :name, :body
 
   def initialize(hash)

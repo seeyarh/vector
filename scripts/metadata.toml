@@ -151,7 +151,7 @@ guides = []
 resources = []
 through_description = "one or more local files"
 
-[[sources.file.outputs]]
+[[sources.file.examples]]
 name = "Example"
 body = """\
 Given the following input:
@@ -340,7 +340,7 @@ output_types = ["metric"]
 resources = []
 through_description = "the StatsD UDP protocol"
 
-[[sources.statsd.outputs]]
+[[sources.statsd.examples]]
 name = "Counter"
 body = """\
 Given the following Statsd counter:
@@ -365,7 +365,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 {% endcode-tabs %}
 """
 
-[[sources.statsd.outputs]]
+[[sources.statsd.examples]]
 name = "Guage"
 body = """\
 Given the following Statsd guage:
@@ -390,7 +390,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 {% endcode-tabs %}
 """
 
-[[sources.statsd.outputs]]
+[[sources.statsd.examples]]
 name = "Set"
 body = """\
 Given the following Statsd set:
@@ -415,7 +415,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 {% endcode-tabs %}
 """
 
-[[sources.statsd.outputs]]
+[[sources.statsd.examples]]
 name = "Timer"
 body = """\
 Given the following Statsd timer:
@@ -455,7 +455,7 @@ guides = []
 resources = []
 through_description = "standard input (STDIN)"
 
-[[sources.stdin.outputs]]
+[[sources.stdin.examples]]
 name = "Example"
 body = """\
 Given the following input line:
@@ -518,7 +518,7 @@ guides = []
 resources = []
 through_description = "the Syslog 5424 protocol"
 
-[[sources.syslog.outputs]]
+[[sources.syslog.examples]]
 name = "Example"
 body = """\
 Given the following input line:
@@ -642,7 +642,7 @@ guides = []
 resources = []
 through_description = "the TCP protocol"
 
-[[sources.tcp.outputs]]
+[[sources.tcp.examples]]
 name = "Example"
 body = """\
 Given the following input line:
@@ -769,7 +769,7 @@ input_types = ["log"]
 output_types = ["log"]
 resources = []
 
-[[transforms.add_fields.outputs]]
+[[transforms.add_fields.examples]]
 name = "Example"
 body = """\
 Given the following configuration:
@@ -1017,7 +1017,7 @@ input_types = ["log"]
 output_types = ["log"]
 resources = []
 
-[[transforms.json_parser.outputs]]
+[[transforms.json_parser.examples]]
 name = "Simple"
 body = """\
 Given the following log event:
@@ -1049,7 +1049,7 @@ By default, Vector drops fields after parsing them via the `drop_field`
 option.
 """
 
-[[transforms.json_parser.outputs]]
+[[transforms.json_parser.examples]]
 name = "Wrapped"
 body = """\
 It is possible to chain `json_parser` transforms to effectively "unwrap"
@@ -1173,7 +1173,7 @@ resources = [
   {name = "Lua Reference Manual", url = "http://www.lua.org/manual/5.1/manual.html"}
 ]
 
-[[transforms.lua.outputs]]
+[[transforms.lua.examples]]
 name = "Add fields"
 body = """\
 Add a field to an event. Supply this as a the `source` value:
@@ -1187,7 +1187,7 @@ event["parent.child"] = "nested value"
 ```
 """
 
-[[transforms.lua.outputs]]
+[[transforms.lua.examples]]
 name = "Remove fields"
 body = """\
 Remove a field from an event. Supply this as a the `source` value:
@@ -1201,7 +1201,7 @@ event["parent.child"] = nil
 ```
 """
 
-[[transforms.lua.outputs]]
+[[transforms.lua.examples]]
 name = "Drop event"
 body = """\
 Drop an event entirely. Supply this as a the `source` value:
@@ -1303,7 +1303,7 @@ input_types = ["log"]
 output_types = ["log"]
 resources = []
 
-[[transforms.regex_parser.outputs]]
+[[transforms.regex_parser.examples]]
 name = "Example"
 body = """\
 Given the following log line:
@@ -1312,7 +1312,7 @@ Given the following log line:
 {% code-tabs-item title="log" %}
 ```json
 {
-  "message": "5.86.210.12 - zieme4647 5667 [19/06/2019:17:20:49 -0400] \"GET /embrace/supply-chains/dynamic/vertical\" 201 20574"
+  "message": "5.86.210.12 - zieme4647 5667 [19/06/2019:17:20:49 -0400] \\"GET /embrace/supply-chains/dynamic/vertical\\" 201 20574"
 }
 ```
 {% endcode-tabs-item %}
@@ -1326,7 +1326,7 @@ And the following configuration:
 [transforms.<transform-id>]
   type = "regex_parser"
   field = "message"
-  regex = "^(?P<host>[\\w\\.]+) - (?P<user>[\\w]+) (?P<bytes_in>[\\d]+) \\[(?P<timestamp>.*)\\] \"(?P<method>[\\w]+) (?P<path>.*)\" (?P<status>[\\d]+) (?P<bytes_out>[\\d]+)$"\
+  regex = '^(?P<host>[\\w\\.]+) - (?P<user>[\\w]+) (?P<bytes_in>[\\d]+) \\[(?P<timestamp>.*)\\] \"(?P<method>[\\w]+) (?P<path>.*)\" (?P<status>[\\d]+) (?P<bytes_out>[\\d]+)$'
 
 [transforms.<transform-id>.types]
   bytes_int = "int"
@@ -1538,7 +1538,7 @@ function_categories = ["parse"]
 input_types = ["log"]
 output_types = ["log"]
 
-[[transforms.tokenizer.outputs]]
+[[transforms.tokenizer.examples]]
 name = "Example"
 body = """\
 Given the following log line:
@@ -1658,7 +1658,7 @@ service_provider = "AWS"
 write_style = "batching"
 write_to_description = "[AWS CloudWatch Logs][url.aws_cw_logs] via the [`PutLogEvents` API endpoint](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html)"
 
-[[sinks.aws_cloudwatch_logs.outputs]]
+[[sinks.aws_cloudwatch_logs.examples]]
 name = "Example"
 body = """\
 ```http
@@ -1735,7 +1735,7 @@ service_provider = "AWS"
 write_style = "batching"
 write_to_description = "[AWS Kinesis Data Stream][url.aws_kinesis_data_streams] via the [`PutRecords` API endpoint](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecords.html)"
 
-[[sinks.aws_kinesis_streams.outputs]]
+[[sinks.aws_kinesis_streams.examples]]
 name = "Example"
 body = """\
 ```http
@@ -1803,7 +1803,7 @@ service_provider = "AWS"
 write_style = "batching"
 write_to_description = "[AWS S3][url.aws_s3] via the [`PutObject` API endpoint](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html)"
 
-[[sinks.aws_s3.outputs]]
+[[sinks.aws_s3.examples]]
 name = "Example"
 body = """\
 ```http
@@ -2041,7 +2041,7 @@ service_provider = "Elastic"
 write_style = "batching"
 write_to_description = "[Elasticsearch][url.elasticsearch] via the [`_bulk` API endpoint](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html)"
 
-[[sinks.elasticsearch.outputs]]
+[[sinks.elasticsearch.examples]]
 name = "Example"
 body = """\
 ```http
@@ -2109,7 +2109,7 @@ service_provider = "Elastic"
 write_style = "batching"
 write_to_description = "a generic HTTP endpoint"
 
-[[sinks.http.outputs]]
+[[sinks.http.examples]]
 name = "Example"
 body = """\
 ```http

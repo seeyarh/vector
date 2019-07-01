@@ -19,7 +19,7 @@ The `aws_s3` sink is in beta. Please see the current [enhancements](https://gith
 {% endhint %}
 The `aws_s3` sink batch and flushes [`log`][docs.log_event] events to [AWS S3][url.aws_s3] via the [`PutObject` API endpoint](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html).
 
-## Example
+## Config File
 
 {% code-tabs %}
 {% code-tabs-item title="vector.toml (example)" %}
@@ -272,12 +272,10 @@ The `aws_s3` sink batch and flushes [`log`][docs.log_event] events to [AWS S3][u
 | `buffer.max_size` | `int` | Only relevant when `type` is `disk`. The maximum size of the buffer on the disk.<br />`no default` `example: 104900000` |
 | `buffer.num_items` | `int` | Only relevant when `type` is `memory`. The maximum number of [events][docs.event] allowed in the buffer.<br />`default: 500` |
 
-## I/O
+## Examples
 
 The `aws_s3` sink batches [`log`][docs.log_event] up to the `batch_size` or `batch_timeout` options. When flushed, Vector will write to [AWS S3][url.aws_s3] via the [`PutObject` API endpoint](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html). The encoding is dictated by the `encoding` option. For example:
 
-{% tabs %}
-{% tab title="Example" %}
 ```http
 POST / HTTP/1.1
 Host: kinesis.<region>.<domain>
@@ -303,9 +301,6 @@ X-Amz-Target: Kinesis_20131202.PutRecords
     "StreamName": "<stream_name>"
 }
 ```
-
-{% endtab %}
-{% endtabs %}
 
 
 

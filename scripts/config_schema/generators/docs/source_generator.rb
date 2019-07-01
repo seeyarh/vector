@@ -38,7 +38,7 @@ module Docs
         #{beta(source)}
         The `#{source.name}` source continuously ingests #{event_type_links(source.output_types).to_sentence} events through #{source.through_description}.
 
-        ## Example
+        ## Config File
 
         {% code-tabs %}
         {% code-tabs-item title="vector.toml (example)" %}
@@ -65,7 +65,7 @@ module Docs
 
         #{options_table_generator.generate}
         
-        #{outputs_section(source)}
+        #{example_section(source)}
 
         #{guides_section(source)}
 

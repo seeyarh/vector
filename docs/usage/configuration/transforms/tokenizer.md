@@ -17,10 +17,10 @@ Instead, please modify the contents of `scripts/metadata.toml`.
 
 The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you to tokenize a field's value by splitting on white space, ignoring special wrapping characters, and zipping the tokens into ordered field names.
 
-## Example
+## Config File
 
 {% code-tabs %}
-{% code-tabs-item title="vector.toml (example)" %}
+{% code-tabs-item title="example" %}
 ```coffeescript
 [transforms.my_tokenizer_transform]
   # REQUIRED - General
@@ -43,7 +43,7 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
     timestamp = "timestamp|%a %b %e %T %Y" # custom strftime format
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="vector.toml (schema)" %}
+{% code-tabs-item title="schema" %}
 ```coffeescript
 [transforms.<transform-id>]
   # REQUIRED - General
@@ -60,7 +60,7 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
     * = {"string" | "int" | "float" | "bool" | "timestamp|strftime"}
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="vector.toml (specification)" %}
+{% code-tabs-item title="specification" %}
 ```coffeescript
 [transforms.tokenizer]
   # REQUIRED - General
@@ -121,13 +121,10 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
 | **OPTIONAL** - Types | | |
 | `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp\|strftime"` |
 
-## I/O
-
-The `tokenizer` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
+## Examples
 
 
-{% tabs %}
-{% tab title="Example" %}
+
 Given the following log line:
 
 {% code-tabs %}
@@ -173,9 +170,6 @@ A few things to note about the output:
 2. The `ident` field was dropped since it contained a `"-"` value.
 3. All values are strings, we have plans to add type coercion.
 4. [Special wrapper characters](#special-characters) were dropped, such as wrapping `[...]` and `"..."` characters.
-
-{% endtab %}
-{% endtabs %}
 
 
 

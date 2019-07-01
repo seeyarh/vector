@@ -38,20 +38,20 @@ module Docs
         #{beta(transform)}
         The `#{transform.name}` transforms accepts #{event_type_links(transform.input_types).to_sentence} events and allows you to #{transform.allow_you_to_description}.
 
-        ## Example
+        ## Config File
 
         {% code-tabs %}
-        {% code-tabs-item title="vector.toml (example)" %}
+        {% code-tabs-item title="example" %}
         ```toml
         #{options_example_generator.generate("transforms.my_#{transform.name}_transform", :examples)}
         ```
         {% endcode-tabs-item %}
-        {% code-tabs-item title="vector.toml (schema)" %}
+        {% code-tabs-item title="schema" %}
         ```toml
         #{options_example_generator.generate("transforms.<transform-id>", :schema)}
         ```
         {% endcode-tabs-item %}
-        {% code-tabs-item title="vector.toml (specification)" %}
+        {% code-tabs-item title="specification" %}
         ```toml
         #{options_example_generator.generate("transforms.#{transform.name}", :spec)}
         ```
@@ -62,7 +62,7 @@ module Docs
 
         #{options_table_generator.generate}
 
-        #{outputs_section(transform, output_prefix)}
+        #{example_section(transform)}
 
         #{guides_section(transform)}
 
@@ -91,12 +91,6 @@ module Docs
 
           content.strip
         end
-      end
-
-      def output_prefix
-        <<~EOF
-        The #{component_name(transform)} accepts #{event_type_links(transform.input_types).to_sentence} events and outputs #{event_type_links(transform.output_types).to_sentence} events.
-        EOF
       end
   end
 end

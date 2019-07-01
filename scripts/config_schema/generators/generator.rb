@@ -185,32 +185,34 @@ class Generator
       REPO_ISSUES_ROOT + '/new?' + params.to_query
     end
 
-    def outputs_section(component, prefix = nil)
-      tabs =
-        component.outputs.collect do |output|
-          content =
-            <<~EOF
-            {% tab title="#{output.name}" %}
-            #{output.body}
-            {% endtab %}
-            EOF
-
-          content.strip
-        end
+    def example_section(component, prefix = nil)
+      return "" if component.examples.empty?
 
       content =
-        if tabs.any?
+        if component.examples.length > 1
+          tabs =
+            component.examples.collect do |example|
+              content =
+                <<~EOF
+                {% tab title="#{example.name}" %}
+                #{example.body}
+                {% endtab %}
+                EOF
+
+              content.strip
+            end
+
           <<~EOF
           {% tabs %}
           #{tabs.join("\n")}
           {% endtabs %}
           EOF
         else
-          ""
+          component.examples.first.body
         end
 
       <<~EOF
-      ## I/O
+      ## Examples
 
       #{prefix}
 

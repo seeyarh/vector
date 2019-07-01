@@ -17,10 +17,10 @@ Instead, please modify the contents of `scripts/metadata.toml`.
 
 The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows you to parse a field's value with a [Regular Expression][url.regex].
 
-## Example
+## Config File
 
 {% code-tabs %}
-{% code-tabs-item title="vector.toml (example)" %}
+{% code-tabs-item title="example" %}
 ```coffeescript
 [transforms.my_regex_parser_transform]
   # REQUIRED - General
@@ -44,7 +44,7 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
     timestamp = "timestamp|%a %b %e %T %Y" # custom strftime format
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="vector.toml (schema)" %}
+{% code-tabs-item title="schema" %}
 ```coffeescript
 [transforms.<transform-id>]
   # REQUIRED - General
@@ -62,7 +62,7 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
     * = {"string" | "int" | "float" | "bool" | "timestamp|strftime"}
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="vector.toml (specification)" %}
+{% code-tabs-item title="specification" %}
 ```coffeescript
 [transforms.regex_parser]
   # REQUIRED - General
@@ -129,20 +129,17 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
 | **OPTIONAL** - Types | | |
 | `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp\|strftime"` |
 
-## I/O
-
-The `regex_parser` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
+## Examples
 
 
-{% tabs %}
-{% tab title="Example" %}
+
 Given the following log line:
 
 {% code-tabs %}
 {% code-tabs-item title="log" %}
 ```json
 {
-  "message": "5.86.210.12 - zieme4647 5667 [19/06/2019:17:20:49 -0400] "GET /embrace/supply-chains/dynamic/vertical" 201 20574"
+  "message": "5.86.210.12 - zieme4647 5667 [19/06/2019:17:20:49 -0400] \"GET /embrace/supply-chains/dynamic/vertical\" 201 20574"
 }
 ```
 {% endcode-tabs-item %}
@@ -156,7 +153,9 @@ And the following configuration:
 [transforms.<transform-id>]
   type = "regex_parser"
   field = "message"
-  regex = "^(?P<host>[\w\.]+) - (?P<user>[\w]+) (?P<bytes_in>[\d]+) \[(?P<timestamp>.*)\] "(?P<method>[\w]+) (?P<path>.*)" (?P<status>[\d]+) (?P<bytes_out>[\d]+)$"[transforms.<transform-id>.types]
+  regex = '^(?P<host>[\w\.]+) - (?P<user>[\w]+) (?P<bytes_in>[\d]+) \[(?P<timestamp>.*)\] "(?P<method>[\w]+) (?P<path>.*)" (?P<status>[\d]+) (?P<bytes_out>[\d]+)$'
+
+[transforms.<transform-id>.types]
   bytes_int = "int"
   timestamp = "timestamp|%m/%d/%Y:%H:%M:%S %z"
   status = "int"
@@ -184,9 +183,6 @@ Things to note about the output:
 
 1. The `message` field was overwritten.
 2. The `bytes_in`, `timestamp`, `status`, and `bytes_out` fields were coerced.
-
-{% endtab %}
-{% endtabs %}
 
 
 

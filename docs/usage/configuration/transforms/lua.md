@@ -19,10 +19,10 @@ The `lua` transform is in beta. Please see the current [enhancements](https://gi
 {% endhint %}
 The `lua` transforms accepts [`log`][docs.log_event] events and allows you to transform events with a full embedded [Lua][url.lua] engine.
 
-## Example
+## Config File
 
 {% code-tabs %}
-{% code-tabs-item title="vector.toml (example)" %}
+{% code-tabs-item title="example" %}
 ```coffeescript
 [transforms.my_lua_transform]
   # REQUIRED - General
@@ -45,7 +45,7 @@ The `lua` transforms accepts [`log`][docs.log_event] events and allows you to tr
   search_dirs = ["/etc/vector/lua"] # no default
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="vector.toml (schema)" %}
+{% code-tabs-item title="schema" %}
 ```coffeescript
 [transforms.<transform-id>]
   # REQUIRED - General
@@ -57,7 +57,7 @@ The `lua` transforms accepts [`log`][docs.log_event] events and allows you to tr
   search_dirs = ["<string>", ...
 ```
 {% endcode-tabs-item %}
-{% code-tabs-item title="vector.toml (specification)" %}
+{% code-tabs-item title="specification" %}
 ```coffeescript
 [transforms.lua]
   # REQUIRED - General
@@ -106,9 +106,8 @@ The `lua` transforms accepts [`log`][docs.log_event] events and allows you to tr
 | **OPTIONAL** | | |
 | `search_dirs` | `[string]` | A list of directories search when loading a Lua file via the `require` function. See [Search Directories](#search-directories) for more info.<br />`no default` `example: ["/etc/vector/lua"]` |
 
-## I/O
+## Examples
 
-The `lua` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
 
 
 {% tabs %}

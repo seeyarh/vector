@@ -19,7 +19,7 @@ The `statsd` source is in beta. Please see the current [enhancements](https://gi
 {% endhint %}
 The `statsd` source continuously ingests [`log`][docs.log_event] events through the StatsD UDP protocol.
 
-## Example
+## Config File
 
 {% code-tabs %}
 {% code-tabs-item title="vector.toml (example)" %}
@@ -61,7 +61,7 @@ The `statsd` source continuously ingests [`log`][docs.log_event] events through 
 | `type` | `string` | The component type<br />`required` `enum: "statsd"` |
 | `address` | `string` | UDP socket address to bind to.<br />`required` `example: "127.0.0.1:8126"` |
 
-## I/O
+## Examples
 
 
 
