@@ -10,10 +10,10 @@ set -eu
 
 CHANNEL=""
 if [[ $VERSION == *"-"* ]]; then
-  $CHANNEL="edge"
+  CHANNEL="edge"
   echo "Version ($VERSION) is an edge version, only releasing to edge channels"
 else
-  $CHANNEL="latest"
+  CHANNEL="latest"
   echo "Version ($VERSION) is a release version, releasing to latest channels"
 fi
 
