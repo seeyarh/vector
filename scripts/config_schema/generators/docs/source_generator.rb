@@ -42,7 +42,7 @@ module Docs
 
         {% code-tabs %}
         {% code-tabs-item title="vector.toml (example)" %}
-        ```coffeescript
+        ```toml
         #{options_example_generator.generate(
           "sources.my_#{source.name}_source",
           :examples
@@ -50,12 +50,12 @@ module Docs
         ```
         {% endcode-tabs-item %}
         {% code-tabs-item title="vector.toml (schema)" %}
-        ```coffeescript
+        ```toml
         #{options_example_generator.generate("sources.<source-id>", :schema)}
         ```
         {% endcode-tabs-item %}
         {% code-tabs-item title="vector.toml (specification)" %}
-        ```coffeescript
+        ```toml
         #{options_example_generator.generate("sources.#{source.name}", :spec)}
         ```
         {% endcode-tabs-item %}

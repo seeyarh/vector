@@ -84,7 +84,8 @@ The `vector` source continuously ingests [`log`][docs.log_event] events through 
 
 
 
-The `vector` source simply forwards incoming events from other upstream Vector instances, unalterated.
+
+
 
 
 

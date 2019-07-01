@@ -127,11 +127,67 @@ The `regex_parser` transforms accepts [`log`][docs.log_event] events and allows 
 | `drop_field` | `bool` | If the `field` should be dropped (removed) after parsing.<br />`default: true` |
 | `field` | `string` | The field to parse. See [Failed Parsing](#failed-parsing) for more info.<br />`default: "message"` |
 | **OPTIONAL** - Types | | |
-| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp|strftime"` |
+| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp\|strftime"` |
 
 ## I/O
 
 The `regex_parser` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
+
+
+{% tabs %}
+{% tab title="Example" %}
+Given the following log line:
+
+{% code-tabs %}
+{% code-tabs-item title="log" %}
+```json
+{
+  "message": "5.86.210.12 - zieme4647 5667 [19/06/2019:17:20:49 -0400] "GET /embrace/supply-chains/dynamic/vertical" 201 20574"
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+And the following configuration:
+
+{% code-tabs %}
+{% code-tabs-item title="vector.toml" %}
+```coffeescript
+[transforms.<transform-id>]
+  type = "regex_parser"
+  field = "message"
+  regex = "^(?P<host>[\w\.]+) - (?P<user>[\w]+) (?P<bytes_in>[\d]+) \[(?P<timestamp>.*)\] "(?P<method>[\w]+) (?P<path>.*)" (?P<status>[\d]+) (?P<bytes_out>[\d]+)$"[transforms.<transform-id>.types]
+  bytes_int = "int"
+  timestamp = "timestamp|%m/%d/%Y:%H:%M:%S %z"
+  status = "int"
+  bytes_out = "int"
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+A [`log` event][docs.log_event] will be emitted with the following structure:
+
+```javascript
+{
+  // ... existing fields
+  "bytes_in": 5667,
+  "host": "5.86.210.12",
+  "user_id": "zieme4647",
+  "timestamp": <19/06/2019:17:20:49 -0400>,
+  "message": "GET /embrace/supply-chains/dynamic/vertical",
+  "status": 201,
+  "bytes": 20574
+}
+```
+
+Things to note about the output:
+
+1. The `message` field was overwritten.
+2. The `bytes_in`, `timestamp`, `status`, and `bytes_out` fields were coerced.
+
+{% endtab %}
+{% endtabs %}
+
 
 
 

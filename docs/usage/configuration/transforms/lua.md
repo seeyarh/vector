@@ -111,10 +111,10 @@ The `lua` transforms accepts [`log`][docs.log_event] events and allows you to tr
 The `lua` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
 
 
-Here are a few example Lua scripts that demonstrate working with the [`event` variable](#global-variables). You can pass these examples to the `source` option:
+{% tabs %}
+{% tab title="Add fields" %}
+Add a field to an event. Supply this as a the `source` value:
 
-{% code-tabs %}
-{% code-tabs-item title="add_fields.lua" %}
 ```lua
 # Add root level field
 event["new_field"] = "new value"
@@ -122,8 +122,11 @@ event["new_field"] = "new value"
 # Add nested field
 event["parent.child"] = "nested value"
 ```
-{% endcode-tabs-item %}
-{% code-tabs-item title="remove_fields.lua" %}
+
+{% endtab %}
+{% tab title="Remove fields" %}
+Remove a field from an event. Supply this as a the `source` value:
+
 ```lua
 # Remove root level field
 event["field"] = nil
@@ -131,14 +134,22 @@ event["field"] = nil
 # Remove nested field
 event["parent.child"] = nil
 ```
-{% endcode-tabs-item %}
-{% code-tabs-item title="drop_event.lua" %}
+
+{% endtab %}
+{% tab title="Drop event" %}
+Drop an event entirely. Supply this as a the `source` value:
+
 ```lua
-# To drop an event entirely
-event = nil
+# Remove root level field
+event["field"] = nil
+
+# Remove nested field
+event["parent.child"] = nil
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+{% endtab %}
+{% endtabs %}
+
 
 
 

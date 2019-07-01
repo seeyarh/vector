@@ -122,6 +122,9 @@ The `blackhole` sink streams [`log`][docs.log_event] and [`metric`][docs.metric_
 
 
 
+
+
+
 ## How It Works
 
 ### Buffers

@@ -188,7 +188,7 @@ content = sinks_generator.generate
 write("docs/usage/configuration/specification.md", content)
 
 #
-# Update links
+# Misc cleanup
 #
 
 files = Dir.glob('docs/**/*.md').to_a
@@ -197,7 +197,14 @@ files = files - ["docs/SUMMARY.md"]
 
 files.each do |file_path|
   content = File.read(file_path)
+
+  # Parse and add link definitions to the footer
   link_generator = LinkGenerator.new(content, file_path, schema.links)
   content = link_generator.generate
+
+  # Convert all ```toml definitions to ```toml since Gitbook
+  # does not have a toml syntax definition and coffeescript is the closest :(
+  content.gsub!('```toml', '```coffeescript')
+
   write(file_path, content, silent: true)
 end

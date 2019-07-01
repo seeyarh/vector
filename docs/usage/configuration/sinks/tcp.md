@@ -147,6 +147,9 @@ The `tcp` sink streams [`log`][docs.log_event] to a TCP connection. The encoding
 
 
 
+
+
+
 ## How It Works
 
 ### Buffers

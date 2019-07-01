@@ -6,7 +6,7 @@
 #
 #   Releases Vector to S3, APT, YUM, Homebrew, Docker, and Github
 
-set -eu
+set -u
 
 $CHANNEL=""
 if [[ $VERSION == *"-"* ]]; then

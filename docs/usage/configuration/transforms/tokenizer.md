@@ -119,13 +119,15 @@ The `tokenizer` transforms accepts [`log`][docs.log_event] events and allows you
 | `drop_field` | `bool` | If `true` the `field` will be dropped after parsing.<br />`default: true` |
 | `field` | `string` | The field to tokenize.<br />`default: "message"` |
 | **OPTIONAL** - Types | | |
-| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp|strftime"` |
+| `types.*` | `string` | A definition of mapped field types. They key is the field name and the value is the type. [`strftime` specifiers][url.strftime_specifiers] are supported for the `timestamp` type.<br />`no default` `enum: "string", "int", "float", "bool", "timestamp\|strftime"` |
 
 ## I/O
 
 The `tokenizer` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
 
 
+{% tabs %}
+{% tab title="Example" %}
 Given the following log line:
 
 {% code-tabs %}
@@ -141,7 +143,7 @@ Given the following log line:
 And the following configuration:
 
 {% code-tabs %}
-{% code-tabs-item title="/var/log/rails.log" %}
+{% code-tabs-item title="vector.toml" %}
 ```coffeescript
 [transforms.<transform-id>]
 type = "tokenizer"
@@ -171,6 +173,10 @@ A few things to note about the output:
 2. The `ident` field was dropped since it contained a `"-"` value.
 3. All values are strings, we have plans to add type coercion.
 4. [Special wrapper characters](#special-characters) were dropped, such as wrapping `[...]` and `"..."` characters.
+
+{% endtab %}
+{% endtabs %}
+
 
 
 

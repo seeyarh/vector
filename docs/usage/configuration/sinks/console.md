@@ -142,6 +142,9 @@ The `console` sink streams [`log`][docs.log_event] and [`metric`][docs.metric_ev
 
 
 
+
+
+
 ## How It Works
 
 ### Buffers

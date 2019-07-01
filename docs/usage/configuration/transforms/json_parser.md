@@ -90,15 +90,44 @@ The `json_parser` transform accepts [`log`][docs.log_event] events and outputs [
 
 
 {% tabs %}
-{% tab title="simple" %}
-
-{% endtab %}
-{% tab title="wrapped" %}
-It is possible to chain `json_parser` transforms to effectively "unwrap"
-nested JSON documents. For example, give this raw log line:
+{% tab title="Simple" %}
+Given the following log event:
 
 ```
-{"message": "{"parent": "{\"child\": \"value2\"}"}"}
+{
+  "message": "{"key": "value"}"
+}
+```
+
+You can parse the JSON with:
+
+```coffeescript
+[transforms.json]
+  inputs = ["<source_id>"]
+  type   = "json_parser"
+  field  = "message"
+```
+
+This would produce the following event as output:
+
+```javascript
+{
+  "key": "value"
+}
+```
+
+By default, Vector drops fields after parsing them via the `drop_field`
+option.
+
+{% endtab %}
+{% tab title="Wrapped" %}
+It is possible to chain `json_parser` transforms to effectively "unwrap"
+nested JSON documents. For example, give this log event:
+
+```
+{
+  "message": "{"parent": "{\"child\": \"value2\"}"}"
+}
 ```
 
 You could unwrap the JSON with the following transforms:
@@ -133,6 +162,7 @@ option.
 
 {% endtab %}
 {% endtabs %}
+
 
 
 

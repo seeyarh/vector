@@ -130,6 +130,9 @@ The `vector` sink streams [`log`][docs.log_event] to another downstream Vector i
 
 
 
+
+
+
 ## How It Works
 
 ### Buffers

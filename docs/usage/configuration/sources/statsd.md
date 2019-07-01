@@ -66,7 +66,7 @@ The `statsd` source continuously ingests [`log`][docs.log_event] events through 
 
 
 {% tabs %}
-{% tab title="counter" %}
+{% tab title="Counter" %}
 Given the following Statsd counter:
 
 ```
@@ -89,7 +89,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 {% endcode-tabs %}
 
 {% endtab %}
-{% tab title="guage" %}
+{% tab title="Guage" %}
 Given the following Statsd guage:
 
 ```
@@ -112,7 +112,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 {% endcode-tabs %}
 
 {% endtab %}
-{% tab title="set" %}
+{% tab title="Set" %}
 Given the following Statsd set:
 
 ```
@@ -135,7 +135,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 {% endcode-tabs %}
 
 {% endtab %}
-{% tab title="timer" %}
+{% tab title="Timer" %}
 Given the following Statsd timer:
 
 ```
@@ -159,6 +159,7 @@ A [`metric` event][docs.metric_event] will be emitted with the following structu
 
 {% endtab %}
 {% endtabs %}
+
 
 
 

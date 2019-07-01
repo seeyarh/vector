@@ -90,10 +90,12 @@ The `add_fields` transforms accepts [`log`][docs.log_event] events and allows yo
 The `add_fields` transform accepts [`log`][docs.log_event] events and outputs [`log`][docs.log_event] events.
 
 
+{% tabs %}
+{% tab title="Example" %}
 Given the following configuration:
 
 {% code-tabs %}
-{% code-tabs-item title="/var/log/rails.log" %}
+{% code-tabs-item title="vector.toml" %}
 ```coffeescript
 [transforms.my_transform]
   type = "add_fields"
@@ -133,6 +135,10 @@ A [`log` event][docs.log_event] will be emitted with the following structure:
 {% endcode-tabs %}
 
 While unrealistic, this example demonstrates the various accepted [types][docs.config_value_types].
+
+{% endtab %}
+{% endtabs %}
+
 
 
 

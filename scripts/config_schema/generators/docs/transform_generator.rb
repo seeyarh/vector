@@ -42,17 +42,17 @@ module Docs
 
         {% code-tabs %}
         {% code-tabs-item title="vector.toml (example)" %}
-        ```coffeescript
+        ```toml
         #{options_example_generator.generate("transforms.my_#{transform.name}_transform", :examples)}
         ```
         {% endcode-tabs-item %}
         {% code-tabs-item title="vector.toml (schema)" %}
-        ```coffeescript
+        ```toml
         #{options_example_generator.generate("transforms.<transform-id>", :schema)}
         ```
         {% endcode-tabs-item %}
         {% code-tabs-item title="vector.toml (specification)" %}
-        ```coffeescript
+        ```toml
         #{options_example_generator.generate("transforms.#{transform.name}", :spec)}
         ```
         {% endcode-tabs-item %}

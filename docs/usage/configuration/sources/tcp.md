@@ -106,6 +106,8 @@ The `tcp` source continuously ingests [`log`][docs.log_event] events through the
 
 
 
+{% tabs %}
+{% tab title="Example" %}
 Given the following input line:
 
 {% code-tabs %}
@@ -131,6 +133,10 @@ A [`log` event][docs.log_event] will be emitted with the following structure:
 The "timestamp" and `"host"` keys were automatically added as context. You can further parse the `"message"` key with a [transform][docs.transforms], such as the [`regeex` transform][docs.regex_parser_transform].
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+{% endtab %}
+{% endtabs %}
+
 
 
 

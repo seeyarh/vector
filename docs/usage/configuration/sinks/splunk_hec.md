@@ -232,6 +232,9 @@ The `splunk_hec` sink batches [`log`][docs.log_event] up to the `batch_size` or 
 
 
 
+
+
+
 ## How It Works
 
 ### Batching

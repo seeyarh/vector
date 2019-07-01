@@ -1,15 +1,8 @@
 class Output
-  attr_reader :type, :body
-
-  def self.build(body)
-    new({
-      "type" => "*",
-      "body" => body
-    })
-  end
+  attr_reader :name, :body
 
   def initialize(hash)
-    @type = hash.fetch("type")
+    @name = hash.fetch("name")
     @body = hash.fetch("body")
   end
 end

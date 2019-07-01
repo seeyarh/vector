@@ -17,7 +17,7 @@ Vector package installs, generally located at `/etc/vector/vector.spec.yml`:
 
 {% code-tabs %}
 {% code-tabs-item title="/etc/vector/vector.spec.toml" %}
-```toml
+```coffeescript
 #                                    __   __  __  
 #                                    \ \ / / / /
 #                                     \ V / / /

@@ -227,6 +227,8 @@ The `aws_cloudwatch_logs` sink batch and flushes [`log`][docs.log_event] events 
 
 The `aws_cloudwatch_logs` sink batches [`log`][docs.log_event] up to the `batch_size` or `batch_timeout` options. When flushed, Vector will write to [AWS CloudWatch Logs][url.aws_cw_logs] via the [`PutLogEvents` API endpoint](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html). The encoding is dictated by the `encoding` option. For example:
 
+{% tabs %}
+{% tab title="Example" %}
 ```http
 POST / HTTP/1.1
 Host: logs.<region>.<domain>
@@ -255,6 +257,9 @@ X-Amz-Target: Logs_20140328.PutLogEvents
   ]
 }
 ```
+{% endtab %}
+{% endtabs %}
+
 
 
 

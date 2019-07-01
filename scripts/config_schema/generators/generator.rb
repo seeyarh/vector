@@ -186,52 +186,36 @@ class Generator
     end
 
     def outputs_section(component, prefix = nil)
-      if component.outputs.length > 1
-        tabs =
-          component.outputs.collect do |output|
-            content =
-              <<~EOF
-              {% tab title="#{output.type}" %}
-              #{output.body}
-              {% endtab %}
-              EOF
+      tabs =
+        component.outputs.collect do |output|
+          content =
+            <<~EOF
+            {% tab title="#{output.name}" %}
+            #{output.body}
+            {% endtab %}
+            EOF
 
-            content.strip
-          end
+          content.strip
+        end
 
-        content = 
+      content =
+        if tabs.any?
           <<~EOF
-          ## I/O
-
-          #{prefix}
-          
           {% tabs %}
           #{tabs.join("\n")}
           {% endtabs %}
           EOF
+        else
+          ""
+        end
 
-        content.strip
-      elsif component.outputs.length > 0
-        content = 
-          <<~EOF
-          ## I/O
+      <<~EOF
+      ## I/O
 
-          #{prefix}
+      #{prefix}
 
-          #{component.outputs.fetch(0).body}
-          EOF
-
-        content.strip
-      else
-        content = 
-          <<~EOF
-          ## I/O
-
-          #{prefix}
-          EOF
-
-        content.strip
-      end
+      #{content.strip}
+      EOF
     end
 
     def editorify(content)

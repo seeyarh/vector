@@ -95,6 +95,10 @@ The `grok_parser` transform accepts [`log`][docs.log_event] events and outputs [
 
 
 
+
+
+
+
 ## How It Works
 
 ### Debugging

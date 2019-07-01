@@ -131,6 +131,8 @@ The `file` source continuously ingests [`log`][docs.log_event] events through on
 
 
 
+{% tabs %}
+{% tab title="Example" %}
 Given the following input:
 
 {% code-tabs %}
@@ -157,6 +159,10 @@ A [`log` event][docs.log_event] will be emitted with the following structure:
 {% endcode-tabs %}
 
 The `"timestamp"`, `"file"`, and `"host"` keys were automatically added as context. You can further parse the `"message"` key with a [transform][docs.transforms], such as the [`regeex` transform][docs.regex_parser_transform].
+
+{% endtab %}
+{% endtabs %}
+
 
 
 
