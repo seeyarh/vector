@@ -32,6 +32,8 @@ pub struct NatsSinkConfig {
     connection_name: String,
     subject: String,
     url: String,
+    #[serde(default)]
+    tls: bool,
 }
 
 fn default_name() -> String {
@@ -89,6 +91,7 @@ impl NatsSinkConfig {
         // client doesn't buffer internally (to avoid message loss).
         async_nats::Options::new()
             .with_name(&self.connection_name)
+            .tls_required(self.tls)
             .reconnect_buffer_size(0)
     }
 

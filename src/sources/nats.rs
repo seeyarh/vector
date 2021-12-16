@@ -37,6 +37,8 @@ pub struct NatsSourceConfig {
     connection_name: String,
     subject: String,
     queue: Option<String>,
+    #[serde(default)]
+    tls: bool,
     #[serde(default = "default_framing_message_based")]
     #[derivative(Default(value = "default_framing_message_based()"))]
     framing: Box<dyn FramingConfig>,
@@ -92,6 +94,7 @@ impl NatsSourceConfig {
         // client doesn't buffer internally (to avoid message loss).
         async_nats::Options::new()
             .with_name(&self.connection_name)
+            .tls_required(self.tls)
             .reconnect_buffer_size(0)
     }
 
@@ -107,6 +110,7 @@ impl From<NatsSourceConfig> for async_nats::Options {
     fn from(config: NatsSourceConfig) -> Self {
         async_nats::Options::new()
             .with_name(&config.connection_name)
+            .tls_required(config.tls)
             .reconnect_buffer_size(0)
     }
 }
