@@ -203,6 +203,8 @@ urls: {
 	gcp_stackdriver_metrics_rest:                             "https://monitoring.googleapis.com/"
 	gcp_stackdriver_severity:                                 "\(gcp)/logging/docs/reference/v2/rest/v2/LogEntry#logseverity"
 	gcp_xml_interface:                                        "\(gcp)/storage/docs/xml-api/overview"
+	gcp_bigquery:                                             "\(gcp)/bigquery"
+	gcp_bigquery_streaming_api:                               "\(gcp)/bigquery/streaming-data-into-bigquery"
 	gcra:                                                     "\(wikipedia)/wiki/Generic_cell_rate_algorithm"
 	gcs:                                                      "https://cloud.google.com/storage/"
 	gcs_predefined_acl:                                       "\(gcp)/storage/docs/access-control/lists#predefined-acl"
