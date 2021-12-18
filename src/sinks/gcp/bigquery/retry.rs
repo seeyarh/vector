@@ -33,7 +33,7 @@ impl RetryLogic for BigqueryRetryLogic {
             StatusCode::OK => {
                 let body = String::from_utf8_lossy(response.body());
                 if body.contains("\"insertErrors\"") {
-                    RetryAction::DontRetry(get_error_reason(response.body()))
+                    RetryAction::DontRetry(get_error_reason(response.body()).into())
                 } else {
                     RetryAction::Successful
                 }
@@ -69,7 +69,7 @@ impl ServiceLogic for BigqueryServiceLogic {
                     let body = String::from_utf8_lossy(response.body());
                     if body.contains("\"insertErrors\"") {
                         error!(message = "", ?response);
-                        EventStatus::Failed
+                        EventStatus::Rejected
                     } else {
                         trace!(message = "Response successful.", ?response);
                         EventStatus::Delivered
@@ -79,7 +79,7 @@ impl ServiceLogic for BigqueryServiceLogic {
                     EventStatus::Errored
                 } else {
                     error!(message = "Response failed.", ?response);
-                    EventStatus::Failed
+                    EventStatus::Rejected
                 }
             }
             Err(error) => {
