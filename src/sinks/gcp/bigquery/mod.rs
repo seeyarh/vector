@@ -4,23 +4,24 @@ mod retry;
 use self::models::{InsertAllRequest, InsertAllRequestRows};
 use self::retry::{BigqueryRetryLogic, BigqueryServiceLogic};
 
-use super::{healthcheck_response, GcpAuthConfig, GcpCredentials, Scope};
+use super::{GcpAuthConfig, GcpCredentials, Scope};
+
 use crate::{
     config::{DataType, GenerateConfig, SinkConfig, SinkContext, SinkDescription},
     event::Event,
     http::HttpClient,
     sinks::{
+        gcs_common::config::healthcheck_response,
         util::{
-            batch::{BatchConfig, BatchSettings},
+            batch::BatchConfig,
             encoding::{EncodingConfigWithDefault, EncodingConfiguration},
             http::{BatchedHttpSink, HttpSink},
-            BoxedRawValue, JsonArrayBuffer, TowerRequestConfig,
+            BoxedRawValue, JsonArrayBuffer, SinkBatchSettings, TowerRequestConfig,
         },
         Healthcheck, UriParseError, VectorSink,
     },
     tls::{TlsOptions, TlsSettings},
 };
-use bytesize::ByteSize;
 use futures::{FutureExt, SinkExt};
 use http::Uri;
 use hyper::{Body, Request};
@@ -28,7 +29,7 @@ use indoc::indoc;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use snafu::{ResultExt, Snafu};
-use std::convert::TryInto;
+use std::num::NonZeroU64;
 use uuid::Uuid;
 
 const NAME: &str = "gcp_bigquery";
@@ -66,12 +67,15 @@ fn default_request_config() -> TowerRequestConfig {
     }
 }
 
-const MAX_BATCH_SIZE_MB: u64 = 8;
-fn default_batch_config() -> BatchConfig {
-    BatchConfig {
-        max_bytes: Some(bytesize::mib(MAX_BATCH_SIZE_MB) as usize),
-        ..Default::default()
-    }
+const MAX_BATCH_PAYLOAD_SIZE: usize = 8_000_000;
+
+#[derive(Clone, Copy, Debug, Default)]
+pub struct BigqueryDefaultBatchSettings;
+
+impl SinkBatchSettings for BigqueryDefaultBatchSettings {
+    const MAX_EVENTS: Option<usize> = Some(1000);
+    const MAX_BYTES: Option<usize> = Some(8_000_000);
+    const TIMEOUT_SECS: NonZeroU64 = unsafe { NonZeroU64::new_unchecked(1) };
 }
 
 #[derive(Deserialize, Serialize, Debug, Default)]
@@ -98,8 +102,8 @@ pub struct BigquerySinkConfig {
     encoding: EncodingConfigWithDefault<Encoding>,
     #[serde(flatten)]
     auth: Option<GcpAuthConfig>,
-    #[serde(default = "default_batch_config")]
-    batch: BatchConfig,
+    #[serde(default)]
+    batch: BatchConfig<BigqueryDefaultBatchSettings>,
     tls: Option<TlsOptions>,
 }
 
@@ -143,23 +147,11 @@ impl SinkConfig for BigquerySinkConfig {
 
         let client = HttpClient::new(tls_settings, cx.proxy())?;
         let sink = BigquerySink::from_config(self).await?;
-        let batch_settings = BatchSettings::default()
-            // BigQuery has a max request size of 10MB, setting to 8MB gives sufficient padding to
-            // include the additional metadata required by the insert request
-            .bytes(bytesize::mib(MAX_BATCH_SIZE_MB).try_into().unwrap())
-            .timeout(1)
-            .parse_config(self.batch)?;
-
-        let batch_bytes = batch_settings.size.bytes as u64;
-
-        if batch_bytes > bytesize::mib(MAX_BATCH_SIZE_MB) {
-            return Err(format!(
-                "provided batch size is too big for BigQuery: {}, max is {}",
-                ByteSize::b(batch_bytes),
-                ByteSize::mib(MAX_BATCH_SIZE_MB)
-            )
-            .into());
-        }
+        let batch_settings = self
+            .batch
+            .validate()?
+            .limit_max_bytes(MAX_BATCH_PAYLOAD_SIZE)?
+            .into_batch_settings()?;
 
         let uri = sink.uri("").expect("failed to parse uri");
         let healthcheck = healthcheck(client.clone(), uri, sink.creds.clone()).boxed();
@@ -361,6 +353,8 @@ mod integration_tests {
         tokio::spawn(server);
 
         let host = String::from("http://localhost:8123");
+        let mut batch = BatchConfig::<BigqueryDefaultBatchSettings>::default();
+        batch.max_events = Some(1);
         let config = BigquerySinkConfig {
             endpoint: host.parse().unwrap(),
             project: "test".into(),
@@ -369,10 +363,7 @@ mod integration_tests {
             ignore_unknown_values: false,
             skip_invalid_rows: false,
             template_suffix: None,
-            batch: BatchConfig {
-                max_events: Some(1),
-                ..default_batch_config()
-            },
+            batch,
             request: default_request_config(),
             ..BigquerySinkConfig::default()
         };
@@ -425,6 +416,8 @@ mod integration_tests {
         tokio::spawn(server);
 
         let host = String::from("http://localhost:8124");
+        let mut batch = BatchConfig::<BigqueryDefaultBatchSettings>::default();
+        batch.max_events = Some(1);
         let config = BigquerySinkConfig {
             endpoint: host.parse().unwrap(),
             project: "test".into(),
@@ -433,10 +426,7 @@ mod integration_tests {
             ignore_unknown_values: false,
             skip_invalid_rows: false,
             template_suffix: None,
-            batch: BatchConfig {
-                max_events: Some(1),
-                ..default_batch_config()
-            },
+            batch,
             request: default_request_config(),
             ..BigquerySinkConfig::default()
         };
@@ -452,6 +442,6 @@ mod integration_tests {
             .await
             .expect("failed to run stream");
 
-        assert_eq!(receiver.try_recv(), Ok(BatchStatus::Failed));
+        assert_eq!(receiver.try_recv(), Ok(BatchStatus::Rejected));
     }
 }
