@@ -1115,7 +1115,7 @@ dependencies = [
  "tokio-util",
  "tracing 0.1.29",
  "tracing-fluent-assertions",
- "tracing-subscriber",
+ "tracing-subscriber 0.3.4",
 ]
 
 [[package]]
@@ -1445,7 +1445,7 @@ dependencies = [
  "tonic 0.5.2",
  "tracing 0.1.29",
  "tracing-core 0.1.21",
- "tracing-subscriber",
+ "tracing-subscriber 0.2.25",
 ]
 
 [[package]]
@@ -3824,9 +3824,9 @@ checksum = "ffbee8634e0d45d258acb448e7eaab3fce7a0a467395d4d9f228e3c1f01fb2e4"
 
 [[package]]
 name = "matchers"
-version = "0.0.1"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f099785f7595cc4b4553a174ce30dd7589ef93391ff414dbb67f62392b9e0ce1"
+checksum = "8263075bb86c5a1b1427b5ae862e8889656f126e9f77c484496e8b47cf5c5558"
 dependencies = [
  "regex-automata",
 ]
@@ -3960,7 +3960,7 @@ dependencies = [
  "once_cell",
  "tracing 0.1.29",
  "tracing-core 0.1.21",
- "tracing-subscriber",
+ "tracing-subscriber 0.2.25",
 ]
 
 [[package]]
@@ -6897,7 +6897,7 @@ dependencies = [
  "snafu",
  "tokio",
  "tracing 0.1.29",
- "tracing-subscriber",
+ "tracing-subscriber 0.3.4",
 ]
 
 [[package]]
@@ -7819,7 +7819,7 @@ checksum = "44099ad2b869e3d751d00c4d8b9d642871517eec60aed6a06598077592bd5e28"
 dependencies = [
  "tracing 0.1.29",
  "tracing-core 0.1.21",
- "tracing-subscriber",
+ "tracing-subscriber 0.2.25",
 ]
 
 [[package]]
@@ -7853,7 +7853,7 @@ dependencies = [
  "mock_instant",
  "tracing 0.1.29",
  "tracing-core 0.1.21",
- "tracing-subscriber",
+ "tracing-subscriber 0.3.4",
 ]
 
 [[package]]
@@ -7883,8 +7883,18 @@ version = "0.2.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0e0d2eaa99c3c2e41547cfa109e910a68ea03823cccad4a0525dcbc9b01e8c71"
 dependencies = [
+ "sharded-slab",
+ "thread_local",
+ "tracing-core 0.1.21",
+]
+
+[[package]]
+name = "tracing-subscriber"
+version = "0.3.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d5e6136799e1079699e0d9784c883e03af55cf6a1bee48fe1d79ca552c1bc36f"
+dependencies = [
  "ansi_term",
- "chrono",
  "lazy_static",
  "matchers",
  "regex",
@@ -8420,7 +8430,7 @@ dependencies = [
  "tracing-futures 0.2.5",
  "tracing-limit",
  "tracing-log",
- "tracing-subscriber",
+ "tracing-subscriber 0.3.4",
  "tracing-tower",
  "trust-dns-proto",
  "tui",
@@ -8543,7 +8553,7 @@ dependencies = [
  "tracing 0.1.29",
  "tracing-core 0.1.21",
  "tracing-log",
- "tracing-subscriber",
+ "tracing-subscriber 0.3.4",
  "twox-hash",
  "typetag",
  "vrl",
@@ -8701,7 +8711,7 @@ dependencies = [
  "shared",
  "structopt",
  "tikv-jemallocator",
- "tracing-subscriber",
+ "tracing-subscriber 0.3.4",
  "vrl",
  "vrl-parser",
  "vrl-stdlib",

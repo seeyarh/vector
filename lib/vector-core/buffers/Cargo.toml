@@ -47,7 +47,7 @@ metrics-tracing-context = { version = "0.8.1", default-features = false }
 serde_yaml = { version = "0.8", default-features = false }
 tracing = { version = "0.1.29", features = ["attributes"] }
 tracing-fluent-assertions = "0.2.0"
-tracing-subscriber = { version = "0.2.25" }
+tracing-subscriber = { version = "0.3.4" }
 human_bytes = "0.3.0"
 
 [[bench]]
