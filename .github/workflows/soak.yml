@@ -159,7 +159,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@f2a13332ac1ce8c0a71aeac48a150dbb1838ab67
+        uses: docker/metadata-action@57396166ad8aefe6098280995947635806a0e6ea
         with:
           flavor: |
             latest=false
@@ -204,7 +204,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@f2a13332ac1ce8c0a71aeac48a150dbb1838ab67
+        uses: docker/metadata-action@57396166ad8aefe6098280995947635806a0e6ea
         with:
           flavor: |
             latest=false
